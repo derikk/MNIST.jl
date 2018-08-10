@@ -48,7 +48,7 @@ module MNIST
     function getimage(filename::AbstractString, index::Integer)
         io = open(filename, "r")
         seek(io, IMAGEOFFSET + NROWS * NCOLS * (index - 1))
-        image_t = read(io, UInt8, (MNIST.NROWS, MNIST.NCOLS))
+        image_t = read!(io, Array{UInt8}(undef, MNIST.NROWS, MNIST.NCOLS))
         close(io)
         return image_t'
     end
